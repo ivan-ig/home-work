@@ -28,6 +28,16 @@ class CalculatorTest {
     }
 
     @Test
+    void getDivisionByZero() {
+        assertEquals(Integer.MAX_VALUE, new Calculator().getDivision(9, 0));
+    }
+
+    @Test
+    void getDivisionIntMinimumByMinusOne() {
+        assertEquals(Integer.MIN_VALUE, new Calculator().getDivision(Integer.MIN_VALUE, -1));
+    }
+
+    @Test
     void getAverageOfFour() {
         assertEquals(3.5, new Calculator().getAverageOfFour(2, 2, 4, 6));
     }

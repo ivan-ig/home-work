@@ -3,19 +3,28 @@ package com.sbrf.reboot;
 public class Calculator {
 
     public int getAddition(int firstOperand, int secondOperand) {
-        return firstOperand + secondOperand;
+        return Math.addExact(firstOperand, secondOperand);
     }
 
     public int getSubtraction(int firstOperand, int secondOperand) {
-        return firstOperand - secondOperand;
+        return Math.subtractExact(firstOperand, secondOperand);
     }
 
     public int getMultiplication(int firstOperand, int secondOperand) {
-        return firstOperand * secondOperand;
+        return Math.multiplyExact(firstOperand, secondOperand);
     }
 
     public int getDivision(int firstOperand, int secondOperand) {
-        return firstOperand / secondOperand;
+        int result;
+        if (secondOperand != 0) {
+            result = Math.floorDiv(firstOperand, secondOperand);
+            if (firstOperand == Integer.MIN_VALUE && secondOperand == -1) {
+                result *= -1;
+            }
+        } else {
+            result = Integer.MAX_VALUE;
+        }
+        return result;
     }
 
     public double getAverageOfFour(int firstOperand, int secondOperand,
