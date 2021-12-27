@@ -1,6 +1,7 @@
 package com.sbrf.reboot.service;
 
 import com.sbrf.reboot.repository.AccountRepository;
+import com.sbrf.reboot.repository.AccountService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,12 +31,11 @@ class AccountServiceTest {
     @SneakyThrows
     @Test
     void contractExist() {
-        Set<Long> accounts = new HashSet();
+        Set<Long> accounts = new HashSet<>();
         accounts.add(111L);
 
         long clientId = 1L;
         long contractNumber = 111L;
-
 
         when(accountRepository.getAllAccountsByClientId(clientId)).thenReturn(accounts);
 
@@ -45,7 +45,7 @@ class AccountServiceTest {
     @SneakyThrows
     @Test
     void contractNotExist() {
-        Set<Long> accounts = new HashSet();
+        Set<Long> accounts = new HashSet<>();
         accounts.add(222L);
 
         long clientId = 1L;
@@ -54,6 +54,28 @@ class AccountServiceTest {
         when(accountRepository.getAllAccountsByClientId(clientId)).thenReturn(accounts);
 
         assertFalse(accountService.isClientHasContract(clientId, contractNumber));
+    }
+
+    @SneakyThrows
+    @Test
+    void contractNumberValid() {
+        long clientId = 1L;
+        long contractNumber = 111L;
+
+        when(accountRepository.getClientIdByContractNumber(contractNumber)).thenReturn(clientId);
+
+        assertTrue(accountService.isContractNumberValid(contractNumber));
+    }
+
+    @SneakyThrows
+    @Test
+    void contractNumberInvalid() {
+        long clientId = 0L;
+        long contractNumber = 111L;
+
+        when(accountRepository.getClientIdByContractNumber(contractNumber)).thenReturn(clientId);
+
+        assertFalse(accountService.isContractNumberValid(contractNumber));
     }
 
     @Test

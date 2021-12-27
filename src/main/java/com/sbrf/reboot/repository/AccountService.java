@@ -13,7 +13,7 @@ public class AccountService {
         return accountRepository.getAllAccountsByClientId(clientId).contains(contractNumber);
     }
 
-    public long getContractOwnerId(long contractNumber) {
-        return accountRepository.getClientIdByContractNumber(contractNumber);
+    public boolean isContractNumberValid(long contractNumber) {
+        return accountRepository.getClientIdByContractNumber(contractNumber) != 0L;
     }
 }
