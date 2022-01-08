@@ -5,7 +5,6 @@ import lombok.NonNull;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private static final long INVALID_CLIENT_ID = 0L;
 
     public AccountService(@NonNull AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
@@ -16,6 +15,7 @@ public class AccountService {
     }
 
     public boolean isContractNumberValid(long contractNumber) {
-        return accountRepository.getClientIdByContractNumber(contractNumber) != INVALID_CLIENT_ID;
+        long invalidClientId = 0L;
+        return accountRepository.getClientIdByContractNumber(contractNumber) != invalidClientId;
     }
 }
