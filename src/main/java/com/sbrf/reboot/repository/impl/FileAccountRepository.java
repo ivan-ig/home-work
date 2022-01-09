@@ -22,16 +22,18 @@ public class FileAccountRepository implements AccountRepository {
     private final List<String> fileLines = new ArrayList<>();
 
     @Override
-    public Set<Long> getAllAccountsByClientId(long clientId) throws IOException {
+    public Set<Long> getAllAccountsByClientId(long clientId) {
         readLinesFromFileToList();
         return parseListLinesAndGetAccountNumbersByClientId(clientId);
     }
 
-    private void readLinesFromFileToList() throws IOException {
+    private void readLinesFromFileToList() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             while (bufferedReader.ready()) {
                 fileLines.add(bufferedReader.readLine());
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
