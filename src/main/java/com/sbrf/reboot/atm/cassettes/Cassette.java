@@ -1,8 +1,10 @@
 package com.sbrf.reboot.atm.cassettes;
 
+import com.sbrf.reboot.atm.Banknote;
+
 import java.util.List;
 
-public class Cassette <E> {
+public class Cassette <E extends Banknote> {
 
     private final List<E> banknotes;
 
