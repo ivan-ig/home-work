@@ -1,9 +1,6 @@
 package com.sbrf.reboot.post_office;
 
-import com.sbrf.reboot.post_office.parcels.BookPost;
-import com.sbrf.reboot.post_office.parcels.Letter;
 import com.sbrf.reboot.post_office.parcels.Parcel;
-import com.sbrf.reboot.post_office.parcels.PostalPackage;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -22,17 +19,6 @@ public class CarrierService<T extends Parcel> {
     }
 
     private BigDecimal getCarriageCost(T parcel) {
-        BigDecimal carriageCost = new BigDecimal(5000);
-
-        if (parcel instanceof Letter) {
-            carriageCost = new BigDecimal(100);
-        }
-        if (parcel instanceof BookPost) {
-            carriageCost = new BigDecimal(500);
-        }
-        if (parcel instanceof PostalPackage) {
-            carriageCost = new BigDecimal(1500);
-        }
-        return carriageCost;
+        return parcel.getCarriageCost();
     }
 }
