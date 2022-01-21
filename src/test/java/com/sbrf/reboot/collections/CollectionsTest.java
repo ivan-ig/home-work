@@ -30,14 +30,14 @@ public class CollectionsTest {
     @Test
     public void addStudentToRating() {
 
-        List<String> students = new ArrayList<String>(4) {{
+        LinkedList<String> students = new LinkedList<String>() {{
             add("Иванов");
             add("Петров");
             add("Сидоров");
         }};
 
 //        if (isPointsEnough)
-            students.add(0,"Козлов");
+        students.addFirst("Козлов");
 
         assertEquals(4, students.size());
     }
@@ -79,7 +79,7 @@ public class CollectionsTest {
         class Book {
         }
 
-        List<Book> bookshelf = new LinkedList<Book>() {{
+        List<Book> bookshelf = new ArrayList<Book>() {{
             add(new Book());
             add(new Book());
             add(new Book());
@@ -91,7 +91,7 @@ public class CollectionsTest {
     /*
      * Задача (свой пример).
      * Школьный реестр хранит списки учеников девятых классов с разделением по литере класса.
-     * Ученикм в одном классе уникальны. Каждый класс уникален.
+     * Ученики в одном классе уникальны. Каждый класс уникален.
      *
      * Вопрос.
      * Какие коллекции из Collection Framework вы бы использовали для решения задачи?
@@ -102,7 +102,7 @@ public class CollectionsTest {
 
     @Test
     public void fillSchoolRegister() {
-        class Pupil{
+        class Pupil {
         }
 
         Set<Pupil> groupA = new HashSet<Pupil>() {{
