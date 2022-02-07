@@ -11,4 +11,5 @@ public interface CustomerRepository {
 
     List<Customer> getAll();
 
+    boolean checkIfCustomerExist(@NonNull String name);
 }
