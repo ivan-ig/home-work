@@ -19,12 +19,12 @@ public class CustomerH2Repository implements CustomerRepository {
     public CustomerH2Repository() {
         try (Connection conn = getConnection()
                 .orElseThrow(() -> new CanNotConnectException("Unable to establish connection."))) {
-            String sql = "CREATE TABLE Customer (ID IDENTITY PRIMARY KEY," +
+            String sql = "CREATE TABLE IF NOT EXISTS Customer (ID IDENTITY PRIMARY KEY," +
                     " NAME VARCHAR(20) NOT NULL, EMAIL VARCHAR(30));";
             try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
                 preparedStatement.execute();
             }
-        } catch (SQLException | CanNotConnectException e ) {
+        } catch (SQLException | CanNotConnectException e) {
             e.printStackTrace();
         }
     }
