@@ -35,4 +35,31 @@ public class TaskExecutorServiceTest {
 
         taskExecutorService.shutdown();
     }
+
+    @Test
+    public void successRunZeroThreads() {
+        Task task = Mockito.mock(Task.class);
+
+        TaskExecutorService taskExecutorService = new TaskExecutorService(0);
+
+        taskExecutorService.execute(task);
+
+        verify(task, atMost(4)).run();
+
+        taskExecutorService.shutdown();
+    }
+
+    @Test
+    public void successRunOneMlnThreads() {
+        Task task = Mockito.mock(Task.class);
+        int oneMln = 1_000_000;
+
+        TaskExecutorService taskExecutorService = new TaskExecutorService(oneMln);
+
+        taskExecutorService.execute(task);
+
+        verify(task, atMost(8)).run();
+
+        taskExecutorService.shutdown();
+    }
 }
