@@ -14,19 +14,20 @@ public class SomeService {
     public void doSomething() throws ExecutionException, InterruptedException, TimeoutException {
 
         final Duration timeout = Duration.ofSeconds(5);
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor = Executors.newFixedThreadPool(2);
 
-        final Future<String> handler = executor.submit(new Callable() {
+        final Future<String> handler = executor.submit(new Callable<String>() {
             @Override
             public String call() throws Exception {
 
                 // Реализуйте отправку отчета используя CompletableFuture
-                String reportResult = reportService.sendReport("Отправляю отчет");
+                CompletableFuture<String> reportResult = CompletableFuture.
+                        supplyAsync(() -> reportService.sendReport("Отправляю отчет"), executor);
 
                 //какой то код..
                 Thread.sleep(Duration.ofSeconds(3).toMillis());
 
-                if (reportResult.equals("SUCCESS")) {
+                if (reportResult.get().equals("SUCCESS")) {
                     System.out.println("Отчет отправлен успешно");
                 }
 
@@ -37,6 +38,5 @@ public class SomeService {
         handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
 
         executor.shutdownNow();
-
     }
 }
